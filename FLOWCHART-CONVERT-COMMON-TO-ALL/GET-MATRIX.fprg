@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="N, d" type="Integer" array="False" size=""/>
+            <declare name="S" type="String" array="False" size=""/>
+            <assign variable="N" expression="5"/>
+            <assign variable="d" expression="5"/>
+            <declare name="A" type="Integer" array="True" size="N*N"/>
+            <output expression="&quot;Enter elements for the matrix&quot;" newline="True"/>
+            <call expression="InitMatrixI(A,N,N)"/>
+            <output expression="&quot;==== START ====&quot;" newline="True"/>
+            <call expression="GenerateSnailShapeMatrix(A,N)"/>
+            <output expression="&quot;Matrix in Snail Shape&quot;" newline="True"/>
+            <call expression="PrintMatrixI(A,N,N,d)"/>
+            <output expression="&quot;==== END ====&quot;" newline="True"/>
+        </body>
+    </function>
+
+    <function name="GenerateSnailShapeMatrix" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, k, m, s" type="Integer" array="False" size=""/>
+            <assign variable="s" expression="1"/>
+            <assign variable="m" expression="Int(N/2)"/>
+            <for variable="k" start="1" end="m" direction="inc" step="1">
+                <for variable="i" start="k" end="N-k" direction="inc" step="1">
+                    <assign variable="A[Index(k,i,N,N)]" expression="s"/>
+                    <assign variable="s" expression="s+1"/>
+                </for>
+                <for variable="i" start="k" end="N-k" direction="inc" step="1">
+                    <assign variable="A[Index(i,N-k+1,N,N)]" expression="s"/>
+                    <assign variable="s" expression="s+1"/>
+                </for>
+                <for variable="i" start="N-k+1" end="k+1" direction="dec" step="1">
+                    <assign variable="A[Index(N-k+1,i,N,N)]" expression="s"/>
+                    <assign variable="s" expression="s+1"/>
+                </for>
+                <for variable="i" start="N-k+1" end="k+1" direction="dec" step="1">
+                    <assign variable="A[Index(i,k,N,N)]" expression="s"/>
+                    <assign variable="s" expression="s+1"/>
+                </for>
+            </for>
+            <if expression="2*m&lt;&gt;N">
+                <then>
+                    <assign variable="A[Index(m+1,m+1,N,N)]" expression="s"/>
+                </then>
+                <else/>
+            </if>
+        </body>
+    </function>
+
+    <function name="Index" type="Integer" variable="Adr">
+        <parameters>
+            <parameter name="i" type="Integer" array="False"/>
+            <parameter name="j" type="Integer" array="False"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Adr" type="Integer" array="False" size=""/>
+            <if expression="InRange(i,j,N,M)">
+                <then>
+                    <assign variable="Adr" expression="(i-1)*M+j-1"/>
+                </then>
+                <else>
+                    <output expression="ToChar(13)&amp; &#13;&#10;&quot;Error bounds &quot; &amp; &quot; i=&quot;&amp;i &amp; &quot; j=&quot;&amp;j &amp; &quot; N=&quot;&amp; N &amp; &quot; M=&quot; &amp;M" newline="True"/>
+                    <breakpoint/>
+                </else>
+            </if>
+        </body>
+    </function>
+
+    <function name="InitMatrixI" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j, value" type="Integer" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <for variable="j" start="1" end="M" direction="inc" step="1">
+                    <output expression="&quot;Enter element for A[&quot; &amp; i &amp; &quot;,&quot; &amp; j &amp; &quot;]: &quot;" newline="True"/>
+                    <input variable="value"/>
+                    <assign variable="A[Index(i,j,N,M)]" expression="value"/>
+                </for>
+            </for>
+        </body>
+    </function>
+
+    <function name="InRange" type="Boolean" variable="Result">
+        <parameters>
+            <parameter name="i" type="Integer" array="False"/>
+            <parameter name="j" type="Integer" array="False"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Result" type="Boolean" array="False" size=""/>
+            <assign variable="Result" expression="1&lt;=i &amp;&amp; i&lt;=N &amp;&amp; 1&lt;=j &amp;&amp; j&lt;=M"/>
+        </body>
+    </function>
+
+    <function name="PrintMatrixI" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+            <parameter name="D" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j, k" type="Integer" array="False" size=""/>
+            <declare name="S" type="String" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <assign variable="S" expression="&quot;&quot;"/>
+                <for variable="j" start="1" end="M" direction="inc" step="1">
+                    <assign variable="k" expression="A[Index(i,j,N,M)]"/>
+                    <assign variable="S" expression="S &amp; IntToString(k,D)"/>
+                </for>
+                <output expression="S" newline="True"/>
+            </for>
+        </body>
+    </function>
+
+    <function name="IntToString" type="String" variable="Str">
+        <parameters>
+            <parameter name="K" type="Integer" array="False"/>
+            <parameter name="d" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Str, Str1" type="String" array="False" size=""/>
+            <declare name="L, i" type="Integer" array="False" size=""/>
+            <assign variable="Str" expression="&quot;&quot;"/>
+            <assign variable="Str1" expression="ToString(K)"/>
+            <assign variable="L" expression="Len(Str1)"/>
+            <for variable="i" start="1" end="d-L" direction="inc" step="1">
+                <assign variable="Str" expression="Str&amp;&quot; &quot;"/>
+            </for>
+            <for variable="i" start="1" end="L" direction="inc" step="1">
+                <assign variable="Str" expression="Str&amp;Char(Str1,i-1)"/>
+            </for>
+        </body>
+    </function>
+</flowgorithm>

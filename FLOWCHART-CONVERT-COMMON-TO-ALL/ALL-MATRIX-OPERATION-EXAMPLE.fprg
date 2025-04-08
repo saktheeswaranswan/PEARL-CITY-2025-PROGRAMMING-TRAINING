@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="matrixtewoaddsun"/>
+        <attribute name="authors" value=""/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2025-04-08 03:52:50 PM"/>
+        <attribute name="created" value="REVMTDtERVNLVE9QLVQzRkVRUTg7MjAyNS0wNC0wODswMzo0NTo1NCBQTTsyNjUw"/>
+        <attribute name="edited" value="REVMTDtERVNLVE9QLVQzRkVRUTg7MjAyNS0wNC0wODswMzo1Mjo1MCBQTTszOzI3NTQ="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="N, d" type="Integer" array="False" size=""/>
+            <declare name="S" type="String" array="False" size=""/>
+            <assign variable="N" expression="5"/>
+            <assign variable="d" expression="5"/>
+            <declare name="A" type="Integer" array="True" size="N*N"/>
+            <declare name="B" type="Integer" array="True" size="N*N"/>
+            <declare name="C" type="Integer" array="True" size="N*N"/>
+            <declare name="E" type="Integer" array="True" size="N*N"/>
+            <output expression="&quot;Enter elements for Matrix A&quot;" newline="True"/>
+            <call expression="InitMatrixI(A,N,N)"/>
+            <output expression="&quot;Enter elements for Matrix B&quot;" newline="True"/>
+            <call expression="InitMatrixI(B,N,N)"/>
+            <output expression="&quot;==== START ====&quot;" newline="True"/>
+            <call expression="AddMatrices(A, B, C, N)"/>
+            <output expression="&quot;Matrix A&quot;" newline="True"/>
+            <call expression="PrintMatrixI(A, N, N, d)"/>
+            <output expression="&quot;Matrix B&quot;" newline="True"/>
+            <call expression="PrintMatrixI(B, N, N, d)"/>
+            <output expression="&quot;Matrix D (Result of A + B)&quot;" newline="True"/>
+            <call expression="PrintMatrixI(C, N, N, d)"/>
+            <call expression="SubtractMatrices(A, B, E, N)"/>
+            <output expression="&quot;Matrix E (Result of A - B)&quot;" newline="True"/>
+            <call expression="PrintMatrixI(E, N, N, d)"/>
+            <call expression="TransposeMatrix(A, C, N)"/>
+            <output expression="&quot;Matrix A Transpose&quot;" newline="True"/>
+            <call expression="PrintMatrixI(C, N, N, d)"/>
+            <output expression="&quot;==== END ====&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="AddMatrices" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="B" type="Integer" array="True"/>
+            <parameter name="D" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j" type="Integer" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <for variable="j" start="1" end="N" direction="inc" step="1">
+                    <assign variable="D[Index(i,j,N,N)]" expression="A[Index(i,j,N,N)] + B[Index(i,j,N,N)]"/>
+                </for>
+            </for>
+        </body>
+    </function>
+    <function name="Index" type="Integer" variable="Adr">
+        <parameters>
+            <parameter name="i" type="Integer" array="False"/>
+            <parameter name="j" type="Integer" array="False"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Adr" type="Integer" array="False" size=""/>
+            <if expression="InRange(i,j,N,M)">
+                <then>
+                    <assign variable="Adr" expression="(i-1)*M+j-1"/>
+                </then>
+                <else>
+                    <output expression="ToChar(13)&amp; &#13;&#10;&quot;Error bounds &quot; &amp; &quot; i=&quot;&amp;i &amp; &quot; j=&quot;&amp;j &amp; &quot; N=&quot;&amp; N &amp; &quot; M=&quot; &amp;M" newline="True"/>
+                    <breakpoint expression="" always="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="InitMatrixI" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j, value" type="Integer" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <for variable="j" start="1" end="M" direction="inc" step="1">
+                    <output expression="&quot;Enter element for A[&quot; &amp; i &amp; &quot;,&quot; &amp; j &amp; &quot;]: &quot;" newline="True"/>
+                    <input variable="value"/>
+                    <assign variable="A[Index(i,j,N,M)]" expression="value"/>
+                </for>
+            </for>
+        </body>
+    </function>
+    <function name="InRange" type="Boolean" variable="Result">
+        <parameters>
+            <parameter name="i" type="Integer" array="False"/>
+            <parameter name="j" type="Integer" array="False"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Result" type="Boolean" array="False" size=""/>
+            <assign variable="Result" expression="1&lt;=i &amp;&amp; i&lt;=N &amp;&amp; 1&lt;=j &amp;&amp; j&lt;=M"/>
+        </body>
+    </function>
+    <function name="IntToString" type="String" variable="Str">
+        <parameters>
+            <parameter name="K" type="Integer" array="False"/>
+            <parameter name="d" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Str, Str1" type="String" array="False" size=""/>
+            <declare name="L, i" type="Integer" array="False" size=""/>
+            <assign variable="Str" expression="&quot;&quot;"/>
+            <assign variable="Str1" expression="ToString(K)"/>
+            <assign variable="L" expression="Len(Str1)"/>
+            <for variable="i" start="1" end="d-L" direction="inc" step="1">
+                <assign variable="Str" expression="Str&amp;&quot; &quot;"/>
+            </for>
+            <for variable="i" start="1" end="L" direction="inc" step="1">
+                <assign variable="Str" expression="Str&amp;Char(Str1,i-1)"/>
+            </for>
+        </body>
+    </function>
+    <function name="PrintMatrixI" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+            <parameter name="M" type="Integer" array="False"/>
+            <parameter name="D" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j, k" type="Integer" array="False" size=""/>
+            <declare name="S" type="String" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <assign variable="S" expression="&quot;&quot;"/>
+                <for variable="j" start="1" end="M" direction="inc" step="1">
+                    <assign variable="k" expression="A[Index(i,j,N,M)]"/>
+                    <assign variable="S" expression="S &amp; IntToString(k,D)"/>
+                </for>
+                <output expression="S" newline="True"/>
+            </for>
+        </body>
+    </function>
+    <function name="SubtractMatrices" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="B" type="Integer" array="True"/>
+            <parameter name="D" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j" type="Integer" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <for variable="j" start="1" end="N" direction="inc" step="1">
+                    <assign variable="D[Index(i,j,N,N)]" expression="A[Index(i,j,N,N)] - B[Index(i,j,N,N)]"/>
+                </for>
+            </for>
+        </body>
+    </function>
+    <function name="TransposeMatrix" type="None" variable="">
+        <parameters>
+            <parameter name="A" type="Integer" array="True"/>
+            <parameter name="C" type="Integer" array="True"/>
+            <parameter name="N" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i, j" type="Integer" array="False" size=""/>
+            <for variable="i" start="1" end="N" direction="inc" step="1">
+                <for variable="j" start="1" end="N" direction="inc" step="1">
+                    <assign variable="C[Index(j,i,N,N)]" expression="A[Index(i,j,N,N)]"/>
+                </for>
+            </for>
+        </body>
+    </function>
+</flowgorithm>

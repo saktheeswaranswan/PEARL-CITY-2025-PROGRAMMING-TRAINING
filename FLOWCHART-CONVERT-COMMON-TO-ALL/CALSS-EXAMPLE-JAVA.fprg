@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value="Animal Speed Calculation"/>
+        <attribute name="authors" value="Random Neural Monk"/>
+        <attribute name="about" value="Demonstrates OOP principles with animals"/>
+        <attribute name="saved" value="2025-04-08"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <!-- Abstraction: Define Animal class -->
+            <declare name="Animal" type="Class" array="False" size=""/>
+            
+            <!-- Encapsulation: Declare Dog class (inherits from Animal) -->
+            <declare name="Dog" type="Class" array="False" size=""/>
+            <output expression="&quot;Dog Sound: Woof Woof!&quot;" newline="True"/>
+            <output expression="&quot;The dog runs.&quot;" newline="True"/>
+            
+            <!-- Encapsulation: Declare Cat class (inherits from Animal) -->
+            <declare name="Cat" type="Class" array="False" size=""/>
+            <output expression="&quot;Cat Sound: Meow Meow!&quot;" newline="True"/>
+            <output expression="&quot;The cat walks gracefully.&quot;" newline="True"/>
+            
+            <!-- Encapsulation: Declare Car class with private attributes -->
+            <declare name="Car" type="Class" array="False" size=""/>
+            <declare name="CarMake" type="String" array="False" size=""/>
+            <declare name="CarModel" type="String" array="False" size=""/>
+            <output expression="&quot;Enter the make of the car&quot;" newline="True"/>
+            <input variable="CarMake"/>
+            <output expression="&quot;Enter the model of the car&quot;" newline="True"/>
+            <input variable="CarModel"/>
+            <output expression="&quot;The car make: &quot; + CarMake + &quot;, Model: &quot; + CarModel" newline="True"/>
+            <output expression="&quot;Updated Car Info: &quot;" newline="True"/>
+            <output expression="&quot;Car make: &quot; + CarMake + &quot;, Model: &quot; + CarModel" newline="True"/>
+            
+            <!-- Polymorphism: Input values for Animal's distance and time -->
+            <output expression="&quot;Enter the value for distance1 of the animal&quot;" newline="True"/>
+            <declare name="Distance1" type="Real" array="False" size=""/>
+            <input variable="Distance1"/>
+            <output expression="&quot;Enter the value for time1&quot;" newline="True"/>
+            <declare name="Time1" type="Real" array="False" size=""/>
+            <input variable="Time1"/>
+            <output expression="&quot;Enter the value for distance2 of the animal&quot;" newline="True"/>
+            <declare name="Distance2" type="Real" array="False" size=""/>
+            <input variable="Distance2"/>
+            <output expression="&quot;Enter the value for time2&quot;" newline="True"/>
+            <declare name="Time2" type="Real" array="False" size=""/>
+            <input variable="Time2"/>
+            
+            <!-- Polymorphism: Calculate Speed -->
+            <declare name="Speed" type="Real" array="False" size=""/>
+            <assign variable="Speed" expression="(Distance2 - Distance1) / (Time2 - Time1)"/>
+            <output expression="&quot;The speed of the animal is:&quot;" newline="True"/>
+            <output expression="Speed" newline="True"/>
+            
+            <!-- Polymorphism: Bird speed calculation based on wingspan -->
+            <declare name="BirdWingSpan" type="Real" array="False" size=""/>
+            <output expression="&quot;Enter the value for the wingspan of the bird&quot;" newline="True"/>
+            <input variable="BirdWingSpan"/>
+            <declare name="BirdSpeed" type="Real" array="False" size=""/>
+            <assign variable="BirdSpeed" expression="Speed * (1 + BirdWingSpan / 10)"/>
+            <output expression="&quot;The speed of the bird (with wingspan):&quot;" newline="True"/>
+            <output expression="BirdSpeed" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
